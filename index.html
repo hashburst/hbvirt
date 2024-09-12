@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hashburst Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hashburst Registration</h1>
+    <form id="registrationForm">
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="text" id="apikey" placeholder="Enter your API Key" required>
+        <input type="text" id="referral_code" placeholder="Enter your Referral Code" required>
+        <input type="text" id="doge_wallet" placeholder="Enter your DOGE Wallet" required>
+        <input type="text" id="btc_wallet" placeholder="Enter your BTC Wallet" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const data = {
+                email: document.getElementById('email').value,
+                apikey: document.getElementById('apikey').value,
+                referral_code: document.getElementById('referral_code').value,
+                doge_wallet: document.getElementById('doge_wallet').value,
+                btc_wallet: document.getElementById('btc_wallet').value,
+            };
+
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Registration successful. API Key: ' + data.apikey);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Registration failed');
+            });
+        });
+    </script>
+</body>
+</html>
