@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hashburst Free Node</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            margin-top: 50px;
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #00aaff;
+        }
+
+        .title-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #00aaff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .title-circle svg {
+            fill: white;
+            width: 24px;
+            height: 24px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #00aaff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0088cc;
+        }
+
+        .result {
+            margin-top: 20px;
+	    border: 2px solid #007bff;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+         }
+
+         .btn:hover {
+             background-color: #0056b3;
+         }
+
+        .loading {
+            font-size: 1.2em;
+            color: #00aaff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <div class="title-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2L3 14h9v8l9-12h-9z"/></svg>
+            </div>
+            Hashburst Free Node
+        </div>
+        <p>Disclaimer:<br /><textarea style="min-width:400px;padding:2%;" disabled>
+English:
+
+This software is open-source. The testing phase lasts 6 months, after which a one-time payment of Euro (€) 500.00 is required to extend the license indefinitely. As a distributed Hashburst node, in addition to participating in the ecosystem through web app membership and dashboard access, you can join the cluster of workers for mining in the Pools where the Hashburst system is included because it meets the minimum requirements for acceptance.
+
+This solution is distributed free of charge to test the Hashburst system. A license is only required to become a permanent node and receive technical support from a reference dealer. The user makes no claims against Hashburst, manufacturers or dealers. The software does not constitute investment advice or financial solicitation, and no return is guaranteed from mining, as results depend on many unpredictable and contextual factors.
+
+By completing registration, you confirm that you have read, understand, and agree to these terms.
+        
+______________
+
+Italiano:
+
+Questo software è open-source. La fase di test dura 6 mesi, dopo i quali, per estendere la licenza a tempo indeterminato, è richiesto un pagamento unico di Euro (€) 500,00. Come nodo distribuito Hashburst, oltre a partecipare all'ecosistema tramite l'iscrizione alla web app e l'accesso alla dashboard, puoi unirti al cluster di worker per il mining nelle Pool in cui il sistema Hashburst viene incluso poiché raggiunge i requisiti minimi per essere accettato.
+
+Questa soluzione è distribuita gratuitamente per testare il sistema Hashburst. La licenza è richiesta solo per diventare un nodo permanente e ricevere supporto tecnico da un dealer di riferimento. L'utente non può avanzare pretese nei confronti di Hashburst, dei produttori o dei rivenditori. Il software non costituisce un consiglio di investimento né una sollecitazione finanziaria, e non viene garantita alcuna resa dall'attività di mining, poiché i risultati dipendono da numerosi fattori imprevedibili e di contesto.
+
+Completando la registrazione, confermi di aver letto, compreso e accettato queste condizioni.
+        </textarea></p>
+        <div class="form-container">
+            <form id="registrationForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="apikey" placeholder="API Key" required>
+                <input type="text" id="referral_code" placeholder="Referral Code">
+                <input type="text" id="doge_wallet" placeholder="DOGE Wallet">
+                <input type="text" id="btc_wallet" placeholder="BTC Wallet">
+                <input type="submit" value="Register">
+            </form>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const apikey = document.getElementById('apikey').value;
+            const referralCode = document.getElementById('referral_code').value;
+            const dogeWallet = document.getElementById('doge_wallet').value;
+            const btcWallet = document.getElementById('btc_wallet').value;
+
+            // Preparare i dati da inviare
+            const data = {
+                email: email,
+                apikey: apikey,
+                referral_code: referralCode,
+                doge_wallet: dogeWallet,
+                btc_wallet: btcWallet
+            };
+
+            // Mostra un messaggio di caricamento
+            document.getElementById('result').innerHTML = '<p class="loading">Verifying and starting network test...</p>';
+
+            // Effettuare la richiesta POST
+            fetch('http://localhost:8080/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('result').innerHTML = `
+                    <p>Success! License valid!</p>
+                    <p>API Key: valid!</p>
+                    <p>Network test completed. Begining downloading the right miner for your OS:</p>
+   		    <a href="https://github.com/hashburst/HashburstMiner/releases/tag/HashburstMiner" target="_blank" class="download-button">
+                       <button class="btn btn-primary">Download HashburstMiner<br />(for Windows, Mac or Linux)</button>
+                    </a>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = error;
+            });
+        });
+    </script>
+</body>
+</html>
