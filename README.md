@@ -58,4 +58,4 @@ Open Terminal (Shell):
 
 Open your favourite browser and go to this default url: [http://localhost:8080](http://localhost:8080)
 
-![Web-GUI](https://github.com/user-attachments/assets/fd249d18-da5f-4bd2-9a83-d82551b0dcb2)
+![Web-GUI](https://github.com/user-attachments/assets/2325e744-545c-42bd-a83e-3bb2e50d5ca7)
