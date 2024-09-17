@@ -50,6 +50,6 @@ Open Terminal (Shell):
                 10 packets transmitted, 10 packets received, 0.0% packet loss
                 round-trip min/avg/max/stddev = 13.788/20.187/46.045/11.689 ms
                 
-                2024/09/17 02:53:30 Download completato: HashburstMiner
-                2024/09/17 02:53:30 Download completato: HashburstMiner
-                2024/09/17 02:53:30 Starting server on :8080...
+                2024/09/14 02:53:30 Download starting: HashburstMiner
+                2024/09/14 02:53:30 Download complete: HashburstMiner
+                2024/09/14 02:53:30 Starting server on :8080...
