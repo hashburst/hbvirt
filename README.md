@@ -56,6 +56,6 @@ Open Terminal (Shell):
 
 ## Start Web GUI:
 
-Opern your favourite browser and go to this default url: [http://localhost:8080](http://localhost:8080)
+Open your favourite browser and go to this default url: [http://localhost:8080](http://localhost:8080)
 
 ![Web-GUI](https://github.com/user-attachments/assets/fd249d18-da5f-4bd2-9a83-d82551b0dcb2)
